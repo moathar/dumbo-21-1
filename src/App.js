@@ -48,6 +48,7 @@ export default function App() {
       <h2>Welcome {user} please log in to our fruitulous service...</h2>
       {/* <LoginForm callback={setUserContext} /> */}
       <LoginForm />
+
       {userCount ? (
         <h4>we have served {userCount} happy customers today</h4>
       ) : (

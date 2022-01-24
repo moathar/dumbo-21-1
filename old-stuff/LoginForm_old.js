@@ -1,4 +1,5 @@
-// TODO - redo the layout using MUI.
+// a simple form which is styled through bulma css lib, it uses a backing custom
+// hook to deal with storing values. The call back is provided by the client component.
 
 import React from "react";
 
