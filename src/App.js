@@ -45,12 +45,12 @@ export default function App() {
 
   return (
     <div className="App">
-      <h2>Welcome {user} please log in to our fruitulous service...</h2>
+      <h3>Welcome {user} please log in to our fruitulous service...</h3>
       {/* <LoginForm callback={setUserContext} /> */}
       <LoginForm />
 
       {userCount ? (
-        <h4>we have served {userCount} happy customers today</h4>
+        <h5>we have served {userCount} happy customers today</h5>
       ) : (
         <p />
       )}

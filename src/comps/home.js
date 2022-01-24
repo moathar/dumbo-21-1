@@ -16,7 +16,12 @@ export default function Home() {
       <Grid container>
         <OurAppBar />
       </Grid>
-      <Grid></Grid>
+      <Grid>
+        <Typography>
+          Wohoo <span style={{ color: "green" }}>{userName}</span> you have
+          landed on the home page, now select what you want to do.
+        </Typography>
+      </Grid>
       <Outlet />
     </Grid>
   );

@@ -29,7 +29,7 @@ ReactDOM.render(
             </AuthGuard>
           }
         >
-          <Route
+          {/* <Route
             index
             element={
               <AuthGuard>
@@ -41,7 +41,7 @@ ReactDOM.render(
                 </main>
               </AuthGuard>
             }
-          />
+          /> */}
           <Route
             path="customers"
             element={

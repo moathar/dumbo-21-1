@@ -1,19 +1,42 @@
-// TODO - redo the layout using MUI.
-
-import React from "react";
-
+import * as React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserStore } from "../../store/userStore";
 
-import "bulma/css/bulma.css";
-
-import useLoginForm from "./useLoginForm";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const LoginForm = (prop) => {
-  const { values, handleChange, handleSubmit } = useLoginForm(doLogin);
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
+const theme = createTheme();
+
+export default function LoginForm() {
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -21,61 +44,96 @@ const LoginForm = (prop) => {
   // the from prop should be set up by our auth guard.
   let from = location.state?.from?.pathname || "/home";
 
-  console.log("login form recieved return url", from);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
 
-  function doLogin() {
+    // TOOD: make the login a bit more funky, for now just accept anything
+
     UserStore.update((s) => {
-      s.name = values.email;
-      s.email = values.email;
+      s.name = data.get("email");
+      s.email = data.get("email");
       s.id = "123356";
     });
 
     navigate(from);
-  }
+  };
 
   return (
-    <div className="section is-fullheight">
-      <div className="container">
-        <div className="column is-4 is-offset-4">
-          <div className="box">
-            <form onSubmit={handleSubmit}>
-              <div className="field">
-                <div className="control">
-                  <TextField
-                    fullWidth
-                    label="Email"
-                    variant="standard"
-                    type="email"
-                    name="email"
-                    onChange={handleChange}
-                    value={values.email}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <div className="control">
-                  <TextField
-                    fullWidth
-                    label="Password"
-                    variant="standard"
-                    type="password"
-                    name="password"
-                    onChange={handleChange}
-                    value={values.password}
-                    required
-                  />
-                </div>
-              </div>
-              <Button type="submit" variant="contained">
-                Login
-              </Button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar> */}
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate // put back if needed.
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            {/* <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            /> */}
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            {/* <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid> */}
+          </Box>
+        </Box>
+        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
+      </Container>
+    </ThemeProvider>
   );
-};
-
-export default LoginForm;
+}
