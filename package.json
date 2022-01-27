@@ -1,7 +1,7 @@
 {
   "name": "dumbo",
   "version": "1.0.0",
-  "description": "",
+  "description": "experimental",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
