@@ -58,8 +58,6 @@ export default function Home() {
           </CardActions>
         </Card>
       </Grid>
-
-      <Outlet />
     </Grid>
   );
 }

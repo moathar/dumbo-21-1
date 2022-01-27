@@ -28,8 +28,8 @@ ReactDOM.render(
               <Home />
             </AuthGuard>
           }
-        >
-          {/* <Route
+        ></Route>
+        {/* <Route
             index
             element={
               <AuthGuard>
@@ -42,53 +42,52 @@ ReactDOM.render(
               </AuthGuard>
             }
           /> */}
+        <Route
+          path="customers"
+          element={
+            <AuthGuard>
+              <Customers />
+            </AuthGuard>
+          }
+        >
           <Route
-            path="customers"
+            index
             element={
               <AuthGuard>
-                <Customers />
+                <main style={{ padding: "1rem" }}>
+                  <p>Please select a customer!</p>
+                </main>
               </AuthGuard>
             }
-          >
-            <Route
-              index
-              element={
-                <AuthGuard>
-                  <main style={{ padding: "1rem" }}>
-                    <p>Please select a customer!</p>
-                  </main>
-                </AuthGuard>
-              }
-            />
-            <Route
-              path=":number"
-              element={
-                <AuthGuard>
-                  {" "}
-                  <Customer />{" "}
-                </AuthGuard>
-              }
-            />
-          </Route>
+          />
           <Route
-            path="products"
+            path=":number"
             element={
               <AuthGuard>
                 {" "}
-                <Products />{" "}
+                <Customer />{" "}
               </AuthGuard>
             }
-          >
-            <Route
-              path=":code"
-              element={
-                <AuthGuard>
-                  {" "}
-                  <Product />{" "}
-                </AuthGuard>
-              }
-            />
-          </Route>
+          />
+        </Route>
+        <Route
+          path="products"
+          element={
+            <AuthGuard>
+              {" "}
+              <Products />{" "}
+            </AuthGuard>
+          }
+        >
+          <Route
+            path=":code"
+            element={
+              <AuthGuard>
+                {" "}
+                <Product />{" "}
+              </AuthGuard>
+            }
+          />
         </Route>
 
         <Route path="*" element={<BadLink />} />

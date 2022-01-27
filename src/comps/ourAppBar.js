@@ -30,10 +30,10 @@ const OurAppBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Fruitulous!
           </Typography>
-          <Link style={{ color: "white" }} to="/home/customers">
+          <Link style={{ color: "white" }} to="/customers">
             <Button color="inherit">Customers</Button>
           </Link>
-          <Link style={{ color: "white" }} to="/home/products">
+          <Link style={{ color: "white" }} to="/products">
             <Button color="inherit">Products</Button>
           </Link>
           <Link style={{ color: "yellow" }} to="/">
