@@ -3,7 +3,17 @@ import "./styles.css";
 import React, { useState, useEffect } from "react";
 import { UserStore, StatStore } from "../../store/userStore";
 
+import {
+  Grid,
+  Typography,
+  Card,
+  CardActions,
+  CardContent,
+  Button
+} from "@mui/material";
+
 import LoginForm from "./comps/LoginForm";
+import OurAppBar from "./comps/ourAppBar";
 
 // the user context will be set up by the login component when it has authenticated the user.
 //export const UserContext = React.createContext({ name: "" });
@@ -44,16 +54,24 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h3>Welcome {user} please log in to our fruitulous service...</h3>
-      {/* <LoginForm callback={setUserContext} /> */}
-      <LoginForm />
+    <Grid container spacing={2}>
+      <Grid item xs={12} marginTop={4}>
+        <Typography variant="body1" style={{ textAlign: "center" }}>
+          Welcome to fruitulous!
+        </Typography>
+        <LoginForm />
+      </Grid>
+    </Grid>
+    // <div className="App">
+    //   <h3>Welcome {user} please log in to our fruitulous service...</h3>
+    //   {/* <LoginForm callback={setUserContext} /> */}
+    //   <LoginForm />
 
-      {userCount ? (
-        <h5>we have served {userCount} happy customers today</h5>
-      ) : (
-        <p />
-      )}
-    </div>
+    //   {userCount ? (
+    //     <h5>we have served {userCount} happy customers today</h5>
+    //   ) : (
+    //     <p />
+    //   )}
+    // </div>
   );
 }
