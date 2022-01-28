@@ -24,7 +24,7 @@ export default function Home() {
       <Grid container>
         <OurAppBar />
       </Grid>
-      {userName ? <Outlet /> : <Welcome />}
+      <Outlet />
     </Grid>
   );
 }
