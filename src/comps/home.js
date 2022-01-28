@@ -24,12 +24,12 @@ export default function Home() {
         <OurAppBar />
       </Grid>
 
-      <Grid item>
+      {/* <Grid item>
         <Typography>
           Wohoo <span style={{ color: "green" }}>{userName}</span>, the breaking
           news is that bannana milkshakes are the thing.
         </Typography>
-      </Grid>
+      </Grid> */}
 
       <Grid item xs={12} sm={6}>
         <Card sx={{ minWidth: 275 }}>
