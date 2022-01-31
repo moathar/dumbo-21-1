@@ -12,7 +12,7 @@ import {
 
 export default function Customer() {
   let params = useParams();
-  let customer = getCustomer(parseInt(params.number, 10)); // TODO should come from query param
+  let customer = getCustomer(parseInt(params.id, 10));
 
   return (
     <Grid container>

@@ -17,6 +17,8 @@ export default function Products() {
     }
   };
 
+  //TOOD: user data grid
+
   return (
     <div style={{ padding: "1rem 0", paddingLeft: "10px" }}>
       <h1>Products</h1>

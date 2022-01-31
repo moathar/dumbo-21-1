@@ -58,7 +58,7 @@ ReactDOM.render(
               }
             />
             <Route
-              path=":number"
+              path=":id"
               element={
                 <AuthGuard>
                   {" "}
