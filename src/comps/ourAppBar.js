@@ -36,6 +36,9 @@ const OurAppBar = () => {
           <Link style={{ color: "white" }} to="/home/products">
             <Button color="inherit">Recipes</Button>
           </Link>
+          <Link style={{ color: "white" }} to="/home/profile">
+            <Button color="inherit">Profile</Button>
+          </Link>
           <Link style={{ color: "yellow" }} to="/">
             <Button color="inherit">Logout</Button>
           </Link>

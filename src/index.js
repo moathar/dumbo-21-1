@@ -14,6 +14,7 @@ import Home from "./comps/home";
 import BadLink from "./etc/badlink";
 import AuthGuard from "./guards/authguard";
 import Welcome from "./comps/welcome";
+import Profile from "./comps/profile";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -76,7 +77,7 @@ ReactDOM.render(
               </AuthGuard>
             }
           >
-            <Route
+            {/* <Route
               path=":code"
               element={
                 <AuthGuard>
@@ -84,9 +85,29 @@ ReactDOM.render(
                   <Product />{" "}
                 </AuthGuard>
               }
-            />
+            /> */}
           </Route>
+          <Route
+            path="product/:code"
+            element={
+              <AuthGuard>
+                {" "}
+                <Product />{" "}
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path="profile"
+            element={
+              <AuthGuard>
+                {" "}
+                <Profile />{" "}
+              </AuthGuard>
+            }
+          />
         </Route>
+
         <Route path="*" element={<BadLink />} />
       </Routes>
     </BrowserRouter>

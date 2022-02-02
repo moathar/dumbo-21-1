@@ -1,5 +1,6 @@
 // this is a sample home page
 // TODO: layout, header, footer, menubars etc.
+import { ConstructionOutlined } from "@mui/icons-material";
 import {
   Grid,
   Typography,
@@ -16,6 +17,7 @@ import Welcome from "./welcome";
 
 export default function Home() {
   const userName = UserStore.useState((s) => s.name);
+  console.log("home page:", userName);
 
   return (
     // overall layout
