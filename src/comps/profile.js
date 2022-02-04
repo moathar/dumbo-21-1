@@ -1,3 +1,4 @@
+import * as React from "react";
 import { UserStore } from "../../store/userStore";
 
 import {
@@ -7,20 +8,63 @@ import {
   CardActions,
   Typography,
   Button,
-  CardHeader
+  CardHeader,
+  Box,
+  Tab
 } from "@mui/material";
+
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 
 export default function Profile() {
   // todo get the user name from the store.
   const userName = UserStore.useState((s) => s.name);
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <Grid container>
       <Grid item xs={12} sm={12}>
         <Card>
-          <CardHeader title={userName}></CardHeader>
+          {/* <CardHeader title={userName}></CardHeader> */}
           <CardContent>
-            <Typography>Your profile page will appear here soon!</Typography>
+            <Box sx={{ width: "100%", typography: "body1" }}>
+              <TabContext value={value}>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    bgcolor: "background.paper",
+                    display: "flex"
+                    // height: 224
+                  }}
+                >
+                  <TabList
+                    onChange={handleChange}
+                    // orientation="vertical"
+                    aria-label="Profile page"
+                    selectionFollowsFocus
+                  >
+                    <Tab label="General" value="1" />
+                    <Tab label="Contact" value="2" />
+                    <Tab label="Business" value="3" />
+                  </TabList>
+                </Box>
+                <TabPanel value="1">
+                  You are logged in as{" "}
+                  <span style={{ color: "green" }}>{userName}</span>
+                </TabPanel>
+                <TabPanel value="2">
+                  Your contact details will appear here
+                </TabPanel>
+                <TabPanel value="3">
+                  Your business details will appear here
+                </TabPanel>
+              </TabContext>
+            </Box>
           </CardContent>
           <CardActions></CardActions>
         </Card>
