@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import LinearProgress from "@mui/material/LinearProgress";
+import Paper from "@mui/material/Paper";
 
 import {
   Dialog,
@@ -36,17 +37,25 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const OurAppBar = () => {
   const [open, setOpen] = React.useState(false);
   const userName = UserStore.useState((s) => s.name);
-  const [code, setCode] = React.useState("");
 
   const [progress, setProgress] = React.useState(90);
 
+  const [error, setError] = React.useState("");
+
   const handleClickOpen = () => {
+    setError("");
     setOpen(true);
   };
 
   const handleClose = (event) => {
     event.preventDefault();
-    setOpen(false);
+    const data = new FormData(event.currentTarget);
+    let code = data.get("code");
+    if (code !== userName) {
+      setError("Incorrect pass code, please try again...");
+    } else {
+      setOpen(false);
+    }
   };
 
   return (
@@ -133,6 +142,9 @@ const OurAppBar = () => {
                     Continue
                   </Button>
                 </Grid>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Typography color="red">{error}</Typography>
               </Grid>
             </Box>
           </Box>
