@@ -13,7 +13,12 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import Dialog from "@mui/material/Dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions
+} from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";
@@ -74,42 +79,58 @@ const OurAppBar = () => {
           </Link>
         </Toolbar>
       </AppBar>
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <Grid container spacing={1}>
-          <Grid item xs={12} sm={12}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography>
-                  This session has been locked. Please enter your pass code to
-                  continue.
-                </Typography>
-                <TextField
-                  variant="standard"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="code"
-                  label="Pass Code"
-                  name="code"
-                  type="password"
-                  autoFocus
-                />
-              </CardContent>
-              <CardActions></CardActions>
-            </Card>
-          </Grid>
-          <AppBar sx={{ position: "relative" }}>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              Continue
-            </Button>
-          </AppBar>
-        </Grid>
-      </Dialog>
+
+      <Box sx={{ flexGrow: 1 }}>
+        <Dialog
+          fullScreen
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+          contentAlign={"center"}
+        >
+          <Box
+            sx={{
+              marginTop: 10,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+          >
+            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar> */}
+            <Typography component="h6" variant="h6" color="red">
+              This session has been locked. Please enter your pass code to
+              continue.
+            </Typography>
+            <Box component="form" onSubmit={handleClose} sx={{ mt: 1 }}>
+              <Grid container>
+                <Grid item xs={12} sm={12}>
+                  <TextField
+                    variant="standard"
+                    margin="normal"
+                    required
+                    name="code"
+                    label="Pass Code"
+                    type="password"
+                    id="code"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Continue
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Dialog>
+      </Box>
     </Box>
   );
 };
