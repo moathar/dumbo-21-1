@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import LinearProgress from "@mui/material/LinearProgress";
 
 import {
   Dialog,
@@ -37,11 +38,14 @@ const OurAppBar = () => {
   const userName = UserStore.useState((s) => s.name);
   const [code, setCode] = React.useState("");
 
+  const [progress, setProgress] = React.useState(90);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (event) => {
+    event.preventDefault();
     setOpen(false);
   };
 
@@ -99,11 +103,15 @@ const OurAppBar = () => {
             {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar> */}
-            <Typography component="h6" variant="h6" color="red">
+            <Typography component="h6" color="red" ml={2}>
               This session has been locked. Please enter your pass code to
-              continue.
+              continue. The session will expire automatically if you don't
+              continue within the session expiry time.
             </Typography>
-            <Box component="form" onSubmit={handleClose} sx={{ mt: 1 }}>
+            <Box sx={{ width: "96%", mt: 2 }}>
+              <LinearProgress variant="determinate" value={progress} />
+            </Box>
+            <Box component="form" onSubmit={handleClose} sx={{ mt: 2 }}>
               <Grid container>
                 <Grid item xs={12} sm={12}>
                   <TextField
@@ -119,9 +127,8 @@ const OurAppBar = () => {
                 <Grid item xs={12} sm={12}>
                   <Button
                     type="submit"
-                    fullWidth
                     variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
+                    sx={{ mt: 1, mb: 2 }}
                   >
                     Continue
                   </Button>
