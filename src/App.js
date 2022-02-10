@@ -11,6 +11,8 @@ import {
   CardContent,
   Button
 } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { orange } from "@mui/material/colors";
 
 import LoginForm from "./comps/LoginForm";
 import OurAppBar from "./comps/ourAppBar";
@@ -18,9 +20,29 @@ import OurAppBar from "./comps/ourAppBar";
 // the user context will be set up by the login component when it has authenticated the user.
 //export const UserContext = React.createContext({ name: "" });
 
+const themeDark = createTheme({
+  status: {
+    danger: orange[500]
+  },
+  palette: {
+    mode: "dark"
+  }
+});
+
+const themeLight = createTheme({
+  status: {
+    danger: orange[500]
+  },
+  palette: {
+    mode: "light"
+  }
+});
+
 export default function App() {
   const [user, setUser] = useState("");
   const userCount = StatStore.useState((s) => s.userCount);
+
+  const [mode, setMode] = React.useState(themeLight);
 
   // subscription works ok
   // useEffect(() => {
@@ -54,14 +76,26 @@ export default function App() {
   }, []);
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} marginTop={4}>
-        <Typography variant="body1" style={{ textAlign: "center" }}>
-          Welcome to fruitulous!
-        </Typography>
-        <LoginForm />
+    <ThemeProvider theme={mode}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} marginTop={4}>
+          <Typography variant="body1" style={{ textAlign: "center" }}>
+            Welcome to Dubmo Foods
+          </Typography>
+          <LoginForm />
+          {userCount ? (
+            <Typography
+              variant="body1"
+              style={{ textAlign: "center", fontSize: "80%", marginTop: "4" }}
+            >
+              we have served {userCount} happy customers today
+            </Typography>
+          ) : (
+            <p />
+          )}
+        </Grid>
       </Grid>
-    </Grid>
+    </ThemeProvider>
     // <div className="App">
     //   <h3>Welcome {user} please log in to our fruitulous service...</h3>
     //   {/* <LoginForm callback={setUserContext} /> */}

@@ -11,7 +11,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import LockIcon from "@mui/icons-material/Lock";
+import PersonIcon from "@mui/icons-material/Person";
+import GroupIcon from "@mui/icons-material/Group";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
+import LogoutIcon from "@mui/icons-material/Logout";
 import LinearProgress from "@mui/material/LinearProgress";
 import Paper from "@mui/material/Paper";
 
@@ -29,6 +33,7 @@ import { TextField, Grid, Card, CardActions, CardContent } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import PrivacyDialog from "./privacyDialog";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -42,26 +47,20 @@ const OurAppBar = () => {
 
   const [error, setError] = React.useState("");
 
-  const handleClickOpen = () => {
+  const lockScreen = () => {
+    console.log("locking screen...");
     setError("");
     setOpen(true);
   };
 
   const handleClose = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    let code = data.get("code");
-    if (code !== userName) {
-      setError("Incorrect pass code, please try again...");
-    } else {
-      setOpen(false);
-    }
+    setOpen(false);
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar margin={4}>
           {/* <IconButton
             size="large"
             edge="start"
@@ -72,28 +71,73 @@ const OurAppBar = () => {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Fruitulous!
+            Dumbo Foods
           </Typography>
           <Link style={{ color: "white" }} to="/home/customers">
-            <Button color="inherit">Community</Button>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <GroupIcon />
+            </IconButton>
           </Link>
           <Link style={{ color: "white" }} to="/home/products">
-            <Button color="inherit">Recipes</Button>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <FastfoodIcon />
+            </IconButton>
           </Link>
           <Link style={{ color: "white" }} to="/home/profile">
-            <Button color="inherit">Profile</Button>
+            {/* <Button color="inherit">Profile</Button> */}
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <PersonIcon />
+            </IconButton>
           </Link>
-          <Button style={{ color: "white" }} onClick={handleClickOpen}>
-            Lock{" "}
-          </Button>
 
-          <Link style={{ color: "yellow" }} to="/">
-            <Button color="inherit">Logout</Button>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <LockIcon onClick={lockScreen} color={"warning"} />
+          </IconButton>
+
+          <Link color={"secondary.light"} to="/">
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <LogoutIcon />
+            </IconButton>
           </Link>
         </Toolbar>
       </AppBar>
+      {open === true ? (
+        <PrivacyDialog userName={userName} callBack={handleClose} />
+      ) : (
+        <p />
+      )}
 
-      <Box sx={{ flexGrow: 1 }}>
+      {/* <Box sx={{ flexGrow: 1 }}>
         <Dialog
           fullScreen
           open={open}
@@ -109,9 +153,7 @@ const OurAppBar = () => {
               alignItems: "center"
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar> */}
+          
             <Typography component="h6" color="red" ml={2}>
               This session has been locked. Please enter your pass code to
               continue. The session will expire automatically if you don't
@@ -149,7 +191,7 @@ const OurAppBar = () => {
             </Box>
           </Box>
         </Dialog>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

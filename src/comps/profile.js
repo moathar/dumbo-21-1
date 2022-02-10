@@ -17,6 +17,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
+import Settings from "./profile-settings";
+
 export default function Profile() {
   // todo get the user name from the store.
   const userName = UserStore.useState((s) => s.name);
@@ -51,6 +53,7 @@ export default function Profile() {
                     <Tab label="General" value="1" />
                     <Tab label="Contact" value="2" />
                     <Tab label="Business" value="3" />
+                    <Tab label="Settings" value="4" />
                   </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -62,6 +65,9 @@ export default function Profile() {
                 </TabPanel>
                 <TabPanel value="3">
                   Your business details will appear here
+                </TabPanel>
+                <TabPanel value="4">
+                  <Settings />{" "}
                 </TabPanel>
               </TabContext>
             </Box>

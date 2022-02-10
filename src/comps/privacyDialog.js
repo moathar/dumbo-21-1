@@ -1,74 +1,110 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import Slide from '@mui/material/Slide';
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+
+import Button from "@mui/material/Button";
+
+import Box from "@mui/material/Box";
+
+import Typography from "@mui/material/Typography";
+
+import LinearProgress from "@mui/material/LinearProgress";
+
+import { Dialog } from "@mui/material";
+import { TextField, Grid } from "@mui/material";
+
+import Slide from "@mui/material/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog() {
-  const [open, setOpen] = React.useState(false);
+export default function PrivacyDialog(props) {
+  const [open] = React.useState(true);
+  const [progress, setProgress] = React.useState(100);
+  const [error, setError] = React.useState("");
+  const navigate = useNavigate();
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClose = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    let code = data.get("code");
+    if (code !== props.userName) {
+      setError("Incorrect pass code, please try again...");
+    } else {
+      props.callBack();
+    }
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // TOOD: use a proper timeout, one min should be fine for demos
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 0) {
+          navigate("/");
+        }
+        return oldProgress - 1;
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open full-screen dialog
-      </Button>
+    <Box sx={{ flexGrow: 1 }}>
       <Dialog
         fullScreen
         open={open}
         onClose={handleClose}
         TransitionComponent={Transition}
+        contentAlign={"center"}
       >
-        <AppBar sx={{ position: 'relative' }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Sound
-            </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              save
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <List>
-          <ListItem button>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
+        <Box
+          sx={{
+            marginTop: 10,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          <Typography component="h6" color="red" ml={2}>
+            This session has been locked. Please enter your pass code to
+            continue. The session will expire automatically if you don't
+            continue within the session expiry time.
+          </Typography>
+          <Box sx={{ width: "96%", mt: 2 }}>
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              sx={{ height: 14, borderRadius: 2 }}
             />
-          </ListItem>
-        </List>
+          </Box>
+          <Box component="form" onSubmit={handleClose} sx={{ mt: 2 }}>
+            <Grid container>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  variant="standard"
+                  margin="normal"
+                  required
+                  name="code"
+                  label="Pass Code"
+                  type="password"
+                  id="code"
+                />
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Button type="submit" variant="contained" sx={{ mt: 1, mb: 2 }}>
+                  Continue
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Typography color="red">{error}</Typography>
+            </Grid>
+          </Box>
+        </Box>
       </Dialog>
-    </div>
+    </Box>
   );
 }
