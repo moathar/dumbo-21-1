@@ -45,8 +45,8 @@ export default function Customers() {
           <DataGrid
             rows={customers}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
             // checkboxSelection
             autoHeight
           />

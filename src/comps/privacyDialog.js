@@ -99,7 +99,10 @@ export default function PrivacyDialog(props) {
           <Typography component="h6" color="red" ml={2}>
             This session has been locked. Please enter your User Id to continue.
             The session will expire automatically if you don't continue within
-            the session expiry time.
+            the session expiry time. <br />
+            <br />
+            Please note, attempt to use another person's session would be a
+            breach of Dumbo Foods' security policy.
           </Typography>
           <Box sx={{ width: "96%", mt: 2 }}>
             <LinearProgress
