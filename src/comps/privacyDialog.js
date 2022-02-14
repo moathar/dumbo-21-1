@@ -23,17 +23,44 @@ export default function PrivacyDialog(props) {
   const [progress, setProgress] = React.useState(100);
   const [error, setError] = React.useState("");
   const navigate = useNavigate();
+  const [input, setInput] = React.useState("");
 
   const handleClose = (event) => {
     event.preventDefault();
+    // console.log(event);
     const data = new FormData(event.currentTarget);
     let code = data.get("code");
     if (code !== props.userName) {
-      setError("Incorrect pass code, please try again...");
+      setError("Incorrect value, please try again...");
     } else {
       props.callBack();
     }
   };
+
+  const checkInput = (event) => {
+    // dismiss the dialogue if the right code has been entered
+    if (event.target.value === props.userName) {
+      console.log("code entered...");
+      props.callBack();
+    }
+    setInput(event.target.value);
+  };
+
+  // const handleEsc = (event) => {
+  //   event.preventDefault();
+  //   console.log("handleEsc called with key", event.keyCode);
+  //   if (event.keyCode === 27) {
+  //     console.log("Escape pressed");
+  //   }
+  // };
+
+  // React.useEffect(() => {
+  //   window.addEventListener("keydown", handleEsc);
+
+  //   return () => {
+  //     window.removeEventListener("keydown", handleEsc);
+  //   };
+  // }, []);
 
   // TOOD: use a proper timeout, one min should be fine for demos
   React.useEffect(() => {
@@ -55,6 +82,7 @@ export default function PrivacyDialog(props) {
     <Box sx={{ flexGrow: 1 }}>
       <Dialog
         fullScreen
+        disableEscapeKeyDown="true"
         open={open}
         onClose={handleClose}
         TransitionComponent={Transition}
@@ -69,9 +97,9 @@ export default function PrivacyDialog(props) {
           }}
         >
           <Typography component="h6" color="red" ml={2}>
-            This session has been locked. Please enter your pass code to
-            continue. The session will expire automatically if you don't
-            continue within the session expiry time.
+            This session has been locked. Please enter your User Id to continue.
+            The session will expire automatically if you don't continue within
+            the session expiry time.
           </Typography>
           <Box sx={{ width: "96%", mt: 2 }}>
             <LinearProgress
@@ -88,9 +116,11 @@ export default function PrivacyDialog(props) {
                   margin="normal"
                   required
                   name="code"
-                  label="Pass Code"
+                  label="User Id"
                   type="password"
                   id="code"
+                  value={input}
+                  onChange={checkInput}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>

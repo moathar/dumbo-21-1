@@ -80,7 +80,7 @@ export default function App() {
       <Grid container spacing={2}>
         <Grid item xs={12} marginTop={4}>
           <Typography variant="body1" style={{ textAlign: "center" }}>
-            Welcome to Dubmo Foods
+            Welcome to Dumbo Foods
           </Typography>
           <LoginForm />
           {userCount ? (

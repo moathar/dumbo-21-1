@@ -23,7 +23,8 @@ export default function Customer() {
             <Typography>
               is a <span style={{ color: "green" }}>{customer.type}</span>{" "}
               visitor at our store and described as: <br />
-              {customer.desc}
+              <br />
+              <span style={{ fontStyle: "italic" }}> {customer.desc} </span>
             </Typography>
           </CardContent>
           <CardActions></CardActions>

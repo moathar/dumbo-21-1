@@ -53,7 +53,7 @@ ReactDOM.render(
               element={
                 <AuthGuard>
                   <main style={{ padding: "1rem" }}>
-                    <p>Please select a customer!</p>
+                    {/* <p>Please select a customer!</p> */}
                   </main>
                 </AuthGuard>
               }

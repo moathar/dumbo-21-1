@@ -9,29 +9,13 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupIcon from "@mui/icons-material/Group";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LinearProgress from "@mui/material/LinearProgress";
-import Paper from "@mui/material/Paper";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogActions
-} from "@mui/material";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import { TextField, Grid, Card, CardActions, CardContent } from "@mui/material";
-
-import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import PrivacyDialog from "./privacyDialog";
 
@@ -136,62 +120,6 @@ const OurAppBar = () => {
       ) : (
         <p />
       )}
-
-      {/* <Box sx={{ flexGrow: 1 }}>
-        <Dialog
-          fullScreen
-          open={open}
-          onClose={handleClose}
-          TransitionComponent={Transition}
-          contentAlign={"center"}
-        >
-          <Box
-            sx={{
-              marginTop: 10,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center"
-            }}
-          >
-          
-            <Typography component="h6" color="red" ml={2}>
-              This session has been locked. Please enter your pass code to
-              continue. The session will expire automatically if you don't
-              continue within the session expiry time.
-            </Typography>
-            <Box sx={{ width: "96%", mt: 2 }}>
-              <LinearProgress variant="determinate" value={progress} />
-            </Box>
-            <Box component="form" onSubmit={handleClose} sx={{ mt: 2 }}>
-              <Grid container>
-                <Grid item xs={12} sm={12}>
-                  <TextField
-                    variant="standard"
-                    margin="normal"
-                    required
-                    name="code"
-                    label="Pass Code"
-                    type="password"
-                    id="code"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{ mt: 1, mb: 2 }}
-                  >
-                    Continue
-                  </Button>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <Typography color="red">{error}</Typography>
-              </Grid>
-            </Box>
-          </Box>
-        </Dialog>
-      </Box> */}
     </Box>
   );
 };
