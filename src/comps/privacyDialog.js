@@ -18,6 +18,7 @@ export default function PrivacyDialog(props) {
   const [error, setError] = React.useState("");
   const navigate = useNavigate();
   const [input, setInput] = React.useState("");
+  const [color, setColor] = React.useState("primary");
 
   const handleClose = (event) => {
     event.preventDefault();
@@ -46,6 +47,12 @@ export default function PrivacyDialog(props) {
       setProgress((oldProgress) => {
         if (oldProgress === 0) {
           navigate("/");
+        }
+        if (oldProgress < 50) {
+          setColor("warning");
+        }
+        if (oldProgress < 25) {
+          setColor("error");
         }
         return oldProgress - 1;
       });
@@ -87,6 +94,7 @@ export default function PrivacyDialog(props) {
               variant="determinate"
               value={progress}
               sx={{ height: 14, borderRadius: 2 }}
+              color={color}
             />
           </Box>
           <Box component="form" onSubmit={handleClose} sx={{ mt: 2 }}>
