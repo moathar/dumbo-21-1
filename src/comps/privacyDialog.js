@@ -1,17 +1,11 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-
 import Button from "@mui/material/Button";
-
 import Box from "@mui/material/Box";
-
 import Typography from "@mui/material/Typography";
-
 import LinearProgress from "@mui/material/LinearProgress";
-
 import { Dialog } from "@mui/material";
 import { TextField, Grid } from "@mui/material";
-
 import Slide from "@mui/material/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -45,22 +39,6 @@ export default function PrivacyDialog(props) {
     }
     setInput(event.target.value);
   };
-
-  // const handleEsc = (event) => {
-  //   event.preventDefault();
-  //   console.log("handleEsc called with key", event.keyCode);
-  //   if (event.keyCode === 27) {
-  //     console.log("Escape pressed");
-  //   }
-  // };
-
-  // React.useEffect(() => {
-  //   window.addEventListener("keydown", handleEsc);
-
-  //   return () => {
-  //     window.removeEventListener("keydown", handleEsc);
-  //   };
-  // }, []);
 
   // TOOD: use a proper timeout, one min should be fine for demos
   React.useEffect(() => {
