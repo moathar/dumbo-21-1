@@ -87,7 +87,7 @@ export default function PrivacyDialog(props) {
             the session expiry time. <br />
             <br />
             Please note, attempt to use another person's session would be a
-            breach of Dumbo Foods' security policy.
+            breach of Dumbo Foods security policy.
           </Typography>
           <Box sx={{ width: "96%", mt: 2 }}>
             <LinearProgress
