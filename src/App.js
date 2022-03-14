@@ -1,7 +1,8 @@
 import "./styles.css";
 
 import React, { useState, useEffect } from "react";
-import { UserStore, StatStore } from "../../store/userStore";
+import { UserStore, StatStore, ThemeStore } from "../../store/userStore";
+import { themeLight, themeDark } from "../../data/themes";
 
 import {
   Grid,
@@ -11,8 +12,7 @@ import {
   CardContent,
   Button
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { orange } from "@mui/material/colors";
+import { ThemeProvider } from "@mui/material/styles";
 
 import LoginForm from "./comps/LoginForm";
 import OurAppBar from "./comps/ourAppBar";
@@ -20,43 +20,45 @@ import OurAppBar from "./comps/ourAppBar";
 // the user context will be set up by the login component when it has authenticated the user.
 //export const UserContext = React.createContext({ name: "" });
 
-const themeDark = createTheme({
-  status: {
-    danger: orange[500]
-  },
-  palette: {
-    mode: "dark"
-  }
-});
+// const themeDark = createTheme({
+//   status: {
+//     danger: orange[500]
+//   },
+//   palette: {
+//     mode: "dark"
+//   }
+// });
 
-const themeLight = createTheme({
-  status: {
-    danger: orange[500]
-  },
-  palette: {
-    mode: "light"
-  }
-});
+// const themeLight = createTheme({
+//   status: {
+//     danger: orange[500]
+//   },
+//   palette: {
+//     mode: "light"
+//   }
+// });
 
 export default function App() {
   const [user, setUser] = useState("");
   const userCount = StatStore.useState((s) => s.userCount);
+  const themeName = ThemeStore.useState((t) => t.currentTheme);
+  const initialTheme = themeName === "light" ? themeLight : themeDark;
+  const [mode, setMode] = React.useState(initialTheme);
 
-  const [mode, setMode] = React.useState(themeLight);
+  // subscribe to theme changes
+  useEffect(() => {
+    const unsubscribeThemeStore = ThemeStore.subscribe(
+      (t) => t.currentTheme,
+      (theme) => {
+        let newTheme = themeName === "light" ? themeLight : themeDark;
+        setMode(newTheme);
+      }
+    );
 
-  // subscription works ok
-  // useEffect(() => {
-  //   const unsubscribeUserStore = UserStore.subscribe(
-  //     (s) => s.id,
-  //     (uid) => {
-  //       console.log("user id changed to:", uid);
-  //     }
-  //   );
-
-  //   return () => {
-  //     unsubscribeUserStore();
-  //   };
-  // }, []);
+    return () => {
+      unsubscribeThemeStore();
+    };
+  }, []);
 
   // try out the reaction where you can update a property based on an observerd changed.
   useEffect(() => {

@@ -12,5 +12,5 @@ export const StatStore = new Store({
 });
 
 export const ThemeStore = new Store({
-  currentTheme: "light"
+  currentTheme: "dark"
 });
