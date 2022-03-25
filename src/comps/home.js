@@ -1,5 +1,6 @@
 // this is a sample home page
 // TODO: layout, header, footer, menubars etc.
+import { ConstructionOutlined } from "@mui/icons-material";
 import {
   Grid,
   Typography,
@@ -8,56 +9,48 @@ import {
   CardContent,
   Button
 } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-import { UserStore } from "../../store/userStore";
+import { UserStore, ThemeStore } from "../../store/userStore";
+import { themeLight, themeDark } from "../../data/themes";
+
 import OurAppBar from "./ourAppBar";
+import Welcome from "./welcome";
 
 export default function Home() {
   const userName = UserStore.useState((s) => s.name);
+  console.log("home page - user is:", userName);
+
+  const themeName = ThemeStore.useState((t) => t.currentTheme);
+  const initialTheme = themeName === "light" ? themeLight : themeDark;
+  const [mode, setMode] = React.useState(initialTheme);
+
+  React.useEffect(() => {
+    const unsubscribeThemeStore = ThemeStore.subscribe(
+      (t) => t.currentTheme,
+      (theme) => {
+        let newTheme = theme === "light" ? themeLight : themeDark;
+        console.log("home page, theme updated to ", theme);
+        setMode(newTheme);
+      }
+    );
+
+    return () => {
+      unsubscribeThemeStore();
+    };
+  }, []);
 
   return (
     // overall layout
-
-    <Grid container spacing={1}>
-      <Grid container>
-        <OurAppBar />
+    <ThemeProvider theme={mode}>
+      <Grid container spacing={1} sx={{ margin: "auto", maxWidth: "0.80" }}>
+        <Grid container>
+          <OurAppBar />
+        </Grid>
+        <Outlet />
       </Grid>
-
-      {/* <Grid item>
-        <Typography>
-          Wohoo <span style={{ color: "green" }}>{userName}</span>, the breaking
-          news is that bannana milkshakes are the thing.
-        </Typography>
-      </Grid> */}
-
-      <Grid item xs={12} sm={6}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent>
-            <Typography>
-              Check out the latest fruitulous recipes here to fill the life of
-              your customers with joy!
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Recipes</Button>
-          </CardActions>
-        </Card>
-      </Grid>
-
-      <Grid item xs={12} sm={6}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent>
-            <Typography>
-              Connect with the community and meet Dumbo's extended family of
-              fruit farmers
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Connect</Button>
-          </CardActions>
-        </Card>
-      </Grid>
-    </Grid>
+    </ThemeProvider>
   );
 }

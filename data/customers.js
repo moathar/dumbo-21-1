@@ -3,29 +3,52 @@
  */
 let customers = [
   {
-    name: "Miss Monica",
-    number: 1995,
-    type: "Standard"
+    name: "Mr Frodo",
+    id: 1000,
+    type: "Standard",
+    desc: "A little man with hairy feet"
   },
   {
-    name: "Mr Stankonia",
-    number: 2000,
-    type: "Premium"
+    name: "James Bond",
+    id: 1001,
+    type: "Premium",
+    desc: "Spy who likes it stirred but not shaken"
   },
   {
     name: "Billy Ocean",
-    number: 2003,
-    type: "Standard"
+    id: 2003,
+    type: "Standard",
+    desc: "musician and singer who did a few good tracks"
   },
   {
-    name: "Mr Tubthumper",
-    number: 1997,
-    type: "Standard"
+    name: "Jack Reacher",
+    id: 2004,
+    type: "Standard",
+    desc: "Brain child of Lee Child who only exists in Child's brain"
   },
   {
-    name: "Mrs Spencer",
-    number: 1998,
-    type: "Standard"
+    name: "Tom Cruise",
+    id: 2005,
+    type: "Premium",
+    desc: "Another litte fella but this one does his own stunts - apparently"
+  },
+  {
+    name: "Kevin Spacy",
+    id: 2006,
+    type: "Premium",
+    desc: "Once popular, not any more."
+  },
+  {
+    name: "Sean Connery",
+    id: 2007,
+    type: "Premium",
+    desc: "The man behind the spy who likes it stirred but not shaken"
+  },
+  {
+    name: "Brian Adams",
+    id: 2008,
+    type: "Premium",
+    desc: " A non-threatening Rock Star "
   }
 ];
 
@@ -34,21 +57,21 @@ export function getCustomers() {
 }
 
 /**
- * @param {number} number
+ * @param {id} id
  * @returns {Customer}
  */
-export function getCustomer(number) {
-  return customers.find((cust) => cust.number === number);
+export function getCustomer(id) {
+  return customers.find((cust) => cust.id === id);
 }
 
 /**
- * @param {number} number
+ * @param {id} id
  * @returns {void}
  */
-export function deleteCustomer(number) {
-  customers = customers.filter((cust) => cust.number !== number);
+export function deleteCustomer(id) {
+  customers = customers.filter((cust) => cust.id !== id);
 }
 
 /**
- * @typedef {{ name: string; number: number; type: string; }} Customer
+ * @typedef {{ name: string; id: number; type: string; }} Customer
  */

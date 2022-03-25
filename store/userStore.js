@@ -10,3 +10,7 @@ export const UserStore = new Store({
 export const StatStore = new Store({
   userCount: 0
 });
+
+export const ThemeStore = new Store({
+  currentTheme: "dark"
+});

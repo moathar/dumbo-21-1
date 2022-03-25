@@ -1,0 +1,129 @@
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import LinearProgress from "@mui/material/LinearProgress";
+import { Dialog } from "@mui/material";
+import { TextField, Grid } from "@mui/material";
+import Slide from "@mui/material/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+export default function PrivacyDialog(props) {
+  const [open] = React.useState(true);
+  const [progress, setProgress] = React.useState(100);
+  const [error, setError] = React.useState("");
+  const navigate = useNavigate();
+  const [input, setInput] = React.useState("");
+  const [color, setColor] = React.useState("primary");
+
+  const handleClose = (event) => {
+    event.preventDefault();
+    // console.log(event);
+    const data = new FormData(event.currentTarget);
+    let code = data.get("code");
+    if (code !== props.userName) {
+      setError("Incorrect value, please try again...");
+    } else {
+      props.callBack();
+    }
+  };
+
+  const checkInput = (event) => {
+    // dismiss the dialogue if the right code has been entered
+    if (event.target.value === props.userName) {
+      console.log("code entered...");
+      props.callBack();
+    }
+    setInput(event.target.value);
+  };
+
+  // TOOD: use a proper timeout, one min should be fine for demos
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 0) {
+          navigate("/");
+        }
+        if (oldProgress < 50) {
+          setColor("warning");
+        }
+        if (oldProgress < 25) {
+          setColor("error");
+        }
+        return oldProgress - 1;
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Dialog
+        fullScreen
+        disableEscapeKeyDown="true"
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        contentAlign={"center"}
+      >
+        <Box
+          sx={{
+            marginTop: 10,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          <Typography component="h6" color="red" ml={2}>
+            This session has been locked. Please enter your User Id to continue.
+            The session will expire automatically if you don't continue within
+            the session expiry time. <br />
+            <br />
+            Please note, attempt to use another person's session would be a
+            breach of Dumbo Foods security policy.
+          </Typography>
+          <Box sx={{ width: "96%", mt: 2 }}>
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              sx={{ height: 14, borderRadius: 2 }}
+              color={color}
+            />
+          </Box>
+          <Box component="form" onSubmit={handleClose} sx={{ mt: 2 }}>
+            <Grid container>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  variant="standard"
+                  margin="normal"
+                  required
+                  name="code"
+                  label="User Id"
+                  type="password"
+                  id="code"
+                  value={input}
+                  onChange={checkInput}
+                />
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Button type="submit" variant="contained" sx={{ mt: 1, mb: 2 }}>
+                  Continue
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Typography color="red">{error}</Typography>
+            </Grid>
+          </Box>
+        </Box>
+      </Dialog>
+    </Box>
+  );
+}

@@ -13,6 +13,8 @@ import App from "./App";
 import Home from "./comps/home";
 import BadLink from "./etc/badlink";
 import AuthGuard from "./guards/authguard";
+import Welcome from "./comps/welcome";
+import Profile from "./comps/profile";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -28,63 +30,79 @@ ReactDOM.render(
               <Home />
             </AuthGuard>
           }
-        ></Route>
-        {/* <Route
-            index
-            element={
-              <AuthGuard>
-                <main style={{ padding: "1rem" }}>
-                  <p>
-                    wohoo, you have landed on the home page, now select what you
-                    want to do.
-                  </p>
-                </main>
-              </AuthGuard>
-            }
-          /> */}
-        <Route
-          path="customers"
-          element={
-            <AuthGuard>
-              <Customers />
-            </AuthGuard>
-          }
         >
           <Route
             index
             element={
               <AuthGuard>
-                <main style={{ padding: "1rem" }}>
-                  <p>Please select a customer!</p>
-                </main>
+                <Welcome />
               </AuthGuard>
             }
           />
+
           <Route
-            path=":number"
+            path="customers"
+            element={
+              <AuthGuard>
+                <Customers />
+              </AuthGuard>
+            }
+          >
+            <Route
+              index
+              element={
+                <AuthGuard>
+                  <main style={{ padding: "1rem" }}>
+                    {/* <p>Please select a customer!</p> */}
+                  </main>
+                </AuthGuard>
+              }
+            />
+            <Route
+              path=":id"
+              element={
+                <AuthGuard>
+                  {" "}
+                  <Customer />{" "}
+                </AuthGuard>
+              }
+            />
+          </Route>
+          <Route
+            path="products"
             element={
               <AuthGuard>
                 {" "}
-                <Customer />{" "}
+                <Products />{" "}
               </AuthGuard>
             }
-          />
-        </Route>
-        <Route
-          path="products"
-          element={
-            <AuthGuard>
-              {" "}
-              <Products />{" "}
-            </AuthGuard>
-          }
-        >
+          >
+            {/* <Route
+              path=":code"
+              element={
+                <AuthGuard>
+                  {" "}
+                  <Product />{" "}
+                </AuthGuard>
+              }
+            /> */}
+          </Route>
           <Route
-            path=":code"
+            path="product/:code"
             element={
               <AuthGuard>
                 {" "}
                 <Product />{" "}
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path="profile"
+            element={
+              <AuthGuard>
+                {" "}
+                <Profile />{" "}
               </AuthGuard>
             }
           />

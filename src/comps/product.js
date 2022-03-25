@@ -7,10 +7,10 @@ export default function Product() {
 
   return (
     <div style={{ padding: "1rem 0", paddingLeft: "10px" }}>
-      <h1>Product Details:</h1>
+      <h1>{prod.name}:</h1>
 
       <div style={{ padding: "1rem 0", paddingLeft: "50px" }}>
-        Name: {prod.name} | Number: {prod.price} | Category: {prod.category}
+        Price: {prod.price} | Category: {prod.category} | Quantity: tbd
       </div>
     </div>
   );
